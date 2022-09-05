@@ -18,4 +18,8 @@ class Post extends Model
         'post_comment_count',
        
     ];
+    public function category(){
+      
+        return $this->belongsTo(Category::class,'post_category_id','_id');
+    }
 }

@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    
     <!-- Scripts -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -28,15 +28,8 @@
     <script src="https://kit.fontawesome.com/af250225e3.js" crossorigin="anonymous"></script>
     <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
-     <!-- Google chart -->
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-     <script>
-         google.charts.load('current', {
-             packages: ['corechart']
-         });
-         google.charts.setOnLoadCallback(drawChart);
-     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 <body>
    <div class="dash">
@@ -96,18 +89,14 @@
 
         <main class="py-4">
 
-            @auth
-            <div id="app"></div>
-            @else
+            
               @yield('content')
-            @endauth
+            
           
           
         </main>
     </div>
-    @vite(
-    'resources/js/app.js'
-    )
+   
     {{-- <script src="{{asset('js/app.js')}}"></script> --}}
 </body>
 </html>

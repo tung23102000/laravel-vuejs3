@@ -29,20 +29,23 @@
 
                                 <div class="form-group">
                                     <label for="category" style="color: black; font-weight: bold;">Category</label>
-                                    <!-- <select name="post_category" id="">
-                                        <option>ABC</option>
-                                    </select> -->
-                                    <input type="text" class="form-control" name="post_author"
-                                        v-model="post.post_category_options">
+                                    <select name="post_category" id="" v-model="post.post_category_id"  aria-label="Default selected category ">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option v-for="category in categories" :key="category._id" :value="category._id">{{ category.cat_title }}</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" name="post_author"
+                                        v-model="post.post_category_options"> -->
                                 </div>
 
                                 <div class="form-group">
                                     <label for="category" style="color: black; font-weight: bold;">Status</label>
-                                    <!-- <select name="" id="">
-                                        <option value=''>Status</option>
-                                    </select> -->
-                                    <input type="text" class="form-control" name="post_author"
-                                        v-model="post.post_status">
+                                    <select name="post_status" id="" v-model="post.post_status">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option value="Draft">Draft</option>
+                                        <option value="Publish">Publish</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" name="post_author"
+                                        v-model="post.post_status"> -->
                                 </div>
 
                                 <div class="form-group">
@@ -82,25 +85,30 @@ export default {
             post: {
                 post_title: "",
                 post_image: "",
-                post_category_options: "",
+                post_category_id: "",
                 post_status: "",
                 post_content: "",
                 post_author: "",
                 post_tags: ""
             },
             errors: [],
+            categories: []
         };
     },
+    created(){
+     this.getCategories();
+    },
+
     methods: {
-        // async getCategories() {
-        //   let url = "http://127.0.0.1:8000/api/categories_all";
-        //   await axios.get(url).then(response => {
-        //     this.post.post_category_options = response.data.categories;
-        //     console.log(this.post.post_category_options);
-        //   }).catch(error => {
-        //     console.log(error);
-        //   });
-        // },
+        async getCategories() {
+          let url = "http://127.0.0.1:8000/api/categories_all";
+          await axios.get(url).then(response => {
+            this.categories = response.data.categories;
+            console.log(this.post.post_category_id);
+          }).catch(error => {
+            console.log(error);
+          });
+        },
         onChange(e) {
             console.log('selected file', e.target.files[0]);
             this.post.post_image = e.target.files[0];
@@ -113,7 +121,7 @@ export default {
             if (!this.post.post_image) {
                 this.errors.push("Post image is required");
             }
-            if (!this.post.post_category_options) {
+            if (!this.post.post_category_id) {
                 this.errors.push("Post category is required");
             }
             if (!this.post.post_content) {
@@ -132,7 +140,7 @@ export default {
             if (!this.errors.length) {
                 let formData = new FormData();
                 formData.append("post_title", this.post.post_title);
-                formData.append("post_category", this.post.post_category_options);
+                formData.append("post_category_id", this.post.post_category_id);
                 formData.append("post_content", this.post.post_content);
                 formData.append("post_image", this.post.post_image);
                 formData.append("post_author", this.post.post_author);

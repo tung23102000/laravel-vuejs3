@@ -19,8 +19,8 @@
   }
   </script>
   
-  <style>
-  body {
+  <style scoped>
+  /* body {
     margin-top: 100px;
     background-color: #222;
   }
@@ -114,6 +114,6 @@
   
   .panel-yellow a:hover {
       color: #df8a13;
-  }
+  } */
   </style>
   

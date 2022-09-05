@@ -11,6 +11,7 @@ class PostController extends Controller
     //
     public function allPost(){
         $posts = Post::all();
+      
         return response()->json([
             'posts' => $posts,
             'message' => 'Post',
@@ -29,9 +30,12 @@ class PostController extends Controller
        $up_location = 'image/';
        $last_img= $up_location.$file_name;
        $file->move(public_path('image'), $file_name);
+       
+        
         $post = new Post();
         $post->post_title = $request->post_title;
-        $post->post_category = $request->post_category;
+        $post->post_category_id = $request->post_category_id;
+        $post->post_category_name = $post->category->cat_title;
         $post->post_content = $request->post_content;
         $post->post_image = $last_img;
         $post->post_author = $request->post_author;
@@ -75,7 +79,8 @@ class PostController extends Controller
     public function updatePost($id, Request $request){
         $post = Post::where('_id', $id)->first();
         $post->post_title = $request->post_title;
-        $post->post_category = $request->post_category;
+        $post->post_category_id = $request->post_category_id;
+        $post->post_category_name = $post->category->cat_title;
         $post->post_content = $request->post_content;
         $post->post_author = $request->post_author;
         $post->post_tags = $request->post_tags;
@@ -101,6 +106,12 @@ class PostController extends Controller
             'message' => 'Contact updated successfully',
             'code' => 200
         ]);
+    }
+
+    public function searchPost($data) {
+        $data = Post::where('post_title','LIKE','%'.$data.'%')->get();
+        return response()->json($data);
+
     }
 
     

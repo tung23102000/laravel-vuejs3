@@ -15,7 +15,7 @@
 
                 <form class="form-inline">
                   <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search..."
-                    aria-label="Search">
+                    aria-label="Search" v-model="search">
                   <button class="btn btn-outline-success my-2 my-sm-0 mx-4"><i
                       class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
@@ -52,7 +52,7 @@
                   <td class='align-middle text-center' style='vertical-align: middle;'><img class='img-responsive' width="102"
                       v-bind:src="post.post_image" alt='image' /></td>
                   <td class='align-middle text-center' style='vertical-align: middle;'>{{post.post_title}}</td>
-                  <td class='align-middle text-center' style='vertical-align: middle;'>{{post.post_category}}</td>
+                  <td class='align-middle text-center' style='vertical-align: middle;'>{{post.post_category_name}}</td>
                   <td class='align-middle text-center' style='vertical-align: middle;'>{{post.created_at}}</td>
                   <td class='align-middle text-center' style='vertical-align: middle;'><a href='#'>View post</a></td>
                   <td class='align-middle text-center' style='vertical-align: middle;'>{{post.post_tags}}</td>
@@ -81,10 +81,14 @@ export default {
   data() {
     return {
       posts: Array,
+      categories:[],
+      
+      search: null
     }
   },
   created() {
-    this.getPosts()
+    this.getPosts();
+    
   },
   mounted() {
     // this.getPosts()
@@ -126,8 +130,29 @@ export default {
           )
         }
       })
+    },
+   
+    async searchData(val){
+      if(val!=''){
+        let url = `http://127.0.0.1:8000/api/search/${val}`;
+      await axios.get(url).then(response => {
+        this.posts = response.data;
+        console.log(this.posts);
+      }).catch(error => {
+        console.log(error);
+      });
+      } 
+    
+         
+    }
+  },
+  watch: {
+    search(){
+      // console.log(this.search);
+      this.searchData(this.search);
     }
   }
+
 }
 </script>
 

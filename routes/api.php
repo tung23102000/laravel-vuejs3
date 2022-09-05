@@ -39,3 +39,5 @@ Route::delete('delete_post/{id}', [PostController::class,'deletePost']);
 Route::get('edit_post/{id}', [PostController::class,'editPost']);
 
 Route::post('update_post/{id}', [PostController::class,'updatePost']);
+
+Route::get('search/{data}', [PostController::class,'searchPost']);
