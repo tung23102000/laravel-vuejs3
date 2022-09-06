@@ -253,9 +253,7 @@ export default {
           });
       }
     },
-    mounted: function () {
-      console.log("Edit component form loaded ");
-    },
+   
   },
 };
 </script>

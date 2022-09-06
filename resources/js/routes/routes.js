@@ -5,7 +5,9 @@ import Users from '../components/admin/Users.vue';
 import Admin_body from '../components/admin/include/Admin_body.vue';
 import EditCategory from '../components/admin/include/Edit_category.vue';
 import AddPost from '../components/admin/include/Add_post.vue';
+import AddUser from '../components/admin/include/Add_user.vue';
 import EditPost from '../components/admin/include/Edit_post.vue';
+import EditUser from '../components/admin/include/Edit_user.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -48,6 +50,16 @@ const routes = [
         name: 'EditPost',
         path:'/post/edit/:id',
         component: EditPost
+    },
+    {
+        name:'AddUser',
+        path:'/add_user',
+        component: AddUser
+    },
+    {
+        name:'EditUser',
+        path:'/user/edit/:id',
+        component: EditUser
     }
 ];
 
